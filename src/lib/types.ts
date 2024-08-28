@@ -28,6 +28,7 @@ export interface  Post {
     datePublished: string; // ISO date-time format
     voteCount: number;
     userVote: 'upvote' | 'downvote' | 'none';
+    excerpt: string
 }
 
 // PostListItem type for a summarized post in a list

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Inter_Tight } from "next/font/google";
-import {cn} from "@/lib/utils"
+import { cn } from "@/lib/utils"
 import "./globals.css";
 import Header from "@/components/header";
+import ReactQueryProvider from "@/components/QueryProvider";
 
 const fontHeading = Inter_Tight({
   subsets: ['latin'],
@@ -28,18 +29,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-    <body
+      <body
         className={cn(
-            'antialiased',
-            fontHeading.variable,
-            fontBody.variable
+          'antialiased',
+          fontHeading.variable,
+          fontBody.variable
         )}
-    >
-    <div className="container mx-auto px-4 py-8 grid gap-8">
-      <Header/>
-      {children}
-    </div>
-    </body>
+      >
+        <div className="container mx-auto px-4 py-8 grid gap-8">
+          <Header />
+          <ReactQueryProvider>
+            {children}
+          </ReactQueryProvider>
+        </div>
+      </body>
     </html>
-);
+  );
 }
