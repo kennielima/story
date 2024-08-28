@@ -15,19 +15,19 @@ const PostPage = () => {
     const [comment, setComment] = useState('')
 
     const { id } = useParams();
-    const { data } = useFetchEachPost(id);
+    const { data, isLoading } = useFetchEachPost(id);
     let post = data;
-    console.log(comment);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await postComment(id, comment);
+            comment !== '' && await postComment(id, comment);
             setComment('');
         } catch (error) {
             console.error('Failed to post comment:', error);
         }
     }
+    if (isLoading) return <div>Loading page...</div>;
 
     return (
         <main className="bg-background rounded-lg border p-6 grid gap-4">

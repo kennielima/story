@@ -31,12 +31,12 @@ export const useFetchEachPost = (id: any) => {
 
 
 
-export const useGetComments = (id: any) => {
+export const useGetComments = (id: {postid: number}) => {
     return useQuery(['comments', id], async () => {
-        let postId = id.postid;
+        const postId = id.postid;
         try {
             const { data } = await api.get(`${BASE_URL}/api/posts/${postId}/comments`);
-            // console.log(data)
+            console.log(data)
             return data.comments;
         } catch (error) {
             console.error('Error message:', error);
@@ -44,11 +44,20 @@ export const useGetComments = (id: any) => {
     });
 }
 
-export const postComment = async(postId: any, comment: string) => {
+export const postComment = async (postId: any, comment: string) => {
         try {
             const { data } = await api.post(`${BASE_URL}/api/posts/${postId}/comments`, {
                 content:comment
             });
+            // console.log(data)
+            return data;
+        } catch (error) {
+            console.error('Error message:', error);
+        }
+}
+export const deleteComment = async (postId: any, commentId: any) => {
+        try {
+            const { data } = await api.delete(`${BASE_URL}/api/posts/${postId}/comments/${commentId}`);
             // console.log(data)
             return data;
         } catch (error) {
