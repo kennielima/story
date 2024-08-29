@@ -5,7 +5,6 @@ import { useGetComments } from '@/lib/hook';
 
 const Comments = (postId: any) => {
     const { data, isLoading } = useGetComments(postId);
-    console.log(data)
 
     if (isLoading) return <div>Loading comments...</div>;
     return (

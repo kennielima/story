@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Post } from "@/lib/types";
 import { capitaliseFirstLetter, getDaysAgo } from "@/lib/utils";
 import { useFetchPosts } from '@/lib/hook';
+import Votes from './Votes';
 
 function getAuthorInitials(authorName: string) {
     return authorName.split(' ').map(name => name[0]).join('');
@@ -40,15 +41,7 @@ const Feed = () => {
                         {post.excerpt}
                     </p>
                     <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-1 text-muted-foreground">
-                            <Button variant="ghost" size="icon" className={`hover:text-green-600 ${post.userVote == 'upvote' && 'text-green-500 bg-accent'}`}>
-                                <ArrowUpIcon className="w-5 h-5" />
-                            </Button>
-                            <span>{post.voteCount}</span>
-                            <Button variant="ghost" size="icon" className={`hover:text-red-600 ${post.userVote == 'downvote' && 'text-red-500 bg-accent'}`}>
-                                <ArrowDownIcon className="w-5 h-5" />
-                            </Button>
-                        </div>
+                        <Votes post={post} />
                         <Link href={`/post/${post.id}`} className="text-sm text-primary hover:underline" prefetch={false}>
                             Read more
                         </Link>

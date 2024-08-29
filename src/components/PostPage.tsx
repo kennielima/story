@@ -1,6 +1,5 @@
 "use client"
 import React, { useState } from 'react'
-import { ArrowDownIcon, ArrowUpIcon, BookIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -10,6 +9,7 @@ import { capitaliseFirstLetter, getDaysAgo } from "@/lib/utils";
 import { useParams } from 'next/navigation';
 import { useFetchEachPost, postComment } from "@/lib/hook";
 import Comments from './Comments';
+import Votes from './Votes';
 
 const PostPage = () => {
     const [comment, setComment] = useState('')
@@ -49,15 +49,7 @@ const PostPage = () => {
                 ))}
             </article>
             <div className="space-y-4">
-                <div className="flex items-center gap-1 text-muted-foreground">
-                    <Button variant="ghost" size="icon" className={`hover:text-green-600 ${post?.userVote == 'upvote' && 'text-green-500'}`}>
-                        <ArrowUpIcon className="w-5 h-5" />
-                    </Button>
-                    <span>{post?.voteCount}</span>
-                    <Button variant="ghost" size="icon" className={`hover:text-red-600 ${post?.userVote == 'downvote' && 'text-red-500'}`}>
-                        <ArrowDownIcon className="w-5 h-5" />
-                    </Button>
-                </div>
+                <Votes post={post} />
             </div>
             <form className="grid gap-4 pr-4" onSubmit={handleSubmit}>
                 <Textarea

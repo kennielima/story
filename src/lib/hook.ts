@@ -1,5 +1,6 @@
 import { useQuery } from 'react-query';
 import api from '@/lib/api';
+import { VoteInput } from './types';
 
 const BASE_URL = 'https://story-api.ikattey.com';
 
@@ -49,7 +50,6 @@ export const postComment = async (postId: any, comment: string) => {
             const { data } = await api.post(`${BASE_URL}/api/posts/${postId}/comments`, {
                 content:comment
             });
-            // console.log(data)
             return data;
         } catch (error) {
             console.error('Error message:', error);
@@ -58,9 +58,20 @@ export const postComment = async (postId: any, comment: string) => {
 export const deleteComment = async (postId: any, commentId: any) => {
         try {
             const { data } = await api.delete(`${BASE_URL}/api/posts/${postId}/comments/${commentId}`);
-            // console.log(data)
             return data;
         } catch (error) {
             console.error('Error message:', error);
         }
 }
+
+
+
+export const votePost = async (postId: string, voteType: VoteInput) => {
+    try {
+      const { data } = await api.post(`/api/posts/${postId}/vote`, voteType);
+      return data;
+    } catch (error) {
+      console.error('Error voting on the post:', error);
+      throw error;
+    }
+  };
